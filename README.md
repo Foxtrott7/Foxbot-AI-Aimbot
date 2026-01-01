@@ -25,15 +25,15 @@ Modern anti-cheat systems often block virtual mouse inputs. This project demonst
 * **CPU:** Runs on any machine (slower).
 
 ## 🧰 Requirements
-* **NVIDIA:** GTX 10-series+ & NVIDIA CUDA Toolkit 11.8
+* **NVIDIA:** GTX 10-series+ & [NVIDIA CUDA Toolkit 11.8](https://developer.nvidia.com/cuda-11-8-0-download-archive)
 * **AMD:** DirectX 12 Support
-* **Hardware:** Arduino Leonardo (ATmega32U4) & Arduino IDE
+* **Hardware:** Arduino Leonardo (ATmega32U4) & [Arduino IDE](https://www.arduino.cc/en/software)
 
 
 ## 🚀 Pre-setup Steps
 1.  **Download:** Extract the repository 🗂️.
-2.  **Python:** Install Python 3.11 (Important: Check **"Add Python to PATH"**!) 🐍.
-3.  **Hardware Setup (Optional):** If using an Arduino, flash the `.ino` file via Arduino IDE and note the COM port.
+2.  **Python:** Install [Python 3.11.x](https://www.python.org/downloads/release/python-3110/) (Important: Check **"Add Python to PATH"** during installation!) 🐍.
+3.  **Hardware Setup (Optional):** If using an Arduino, flash the `.ino` file via [Arduino IDE](https://www.arduino.cc/en/software) and note the COM port.
 
 4.  **Installation Commands:**
     * **Nvidia GPU Users:**
@@ -46,7 +46,7 @@ Modern anti-cheat systems often block virtual mouse inputs. This project demonst
         ```powershell
         pip install torch torchvision torchaudio
         ```
-    * **Final Step:**
+    * **Final Step (Required):**
         ```powershell
         pip install -r requirements.txt
         ```
@@ -76,7 +76,7 @@ Modern anti-cheat systems often block virtual mouse inputs. This project demonst
 
 ### 🎯 Aimbot Logic
 * **Smoothing:** `aaMovementAmp` (0.1 - 1.0) — Adjusts aim speed. ⚖️
-* **Precision:** `confidence` (Default: 0.4) — Detection sensitivity. 🧐
+* **Precision:** `confidence` (Default: 0.4) — Detection sensitivity. 🧐,
 * **Targeting:** `headshot_mode`, `headshot_offset`, `centerOfScreen`. ❤️
 
 ### 🔌 System & Hardware
