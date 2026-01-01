@@ -11,7 +11,7 @@ maskHeight = 200
 
 # --- AIMBOT SETTINGS ---
 # Stärke der Mausbewegung (Amplifier)
-aaMovementAmp = 0.35
+aaMovementAmp = 0.45
 
 # Person Class Confidence (Erkennungsschwelle)
 confidence = 0.4
