@@ -1,0 +1,23 @@
+# Inference Engine (Support für CPU, NVIDIA und AMD/DirectML)
+onnxruntime-directml
+onnxruntime
+
+# Core Math & Data (Fixierte Version für Kompatibilität)
+numpy==1.24.3
+pandas
+
+# Vision & Camera
+opencv-python
+bettercam
+
+# PyTorch (CPU-only für schlanke Installation, da ONNX die Last übernimmt)
+torch --index-url https://download.pytorch.org/whl/cpu
+torchvision --index-url https://download.pytorch.org/whl/cpu
+
+# System & Hardware
+pyserial
+pywin32
+pyyaml
+
+# UI & Formatting
+termcolor
