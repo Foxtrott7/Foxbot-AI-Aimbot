@@ -7,7 +7,9 @@
 
 
 ![Unbenannt](https://github.com/user-attachments/assets/ba9076b8-2fbe-4de0-b8e7-70326b11a08d)
-
+![FPS](https://img.shields.io/badge/Speed-140%20FPS-orange?style=for-the-badge&logo=speedtest&logoColor=white)
+![Model](https://img.shields.io/badge/Model-YOLOv5s--320-blueviolet?style=for-the-badge)
+![Latency](https://img.shields.io/badge/Latency-%3C10ms-success?style=for-the-badge)
 
 # 🎯 Universal Next-Gen AI Aimbot [Arduino & Software Hybrid] 🎮
 
