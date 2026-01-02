@@ -4,7 +4,11 @@
 # 🎯 Universal Next-Gen AI Aimbot [Arduino & Software Hybrid] 🎮
 
 ## 🙌 About the Project
-This tool utilizes **YOLOv5** for real-time detection of humanoid characters. While the AI logic is based on the RootKit-Org framework, the core of this project lies in the hardware interface.
+This tool utilizes **YOLOv5** for high-speed, real-time detection of humanoid characters. While the AI logic is based on the RootKit-Org framework, this project is optimized for flexibility:
+
+* **Hybrid Input Support:** You can run the bot entirely via **Software** (Windows API) for a quick start, or use an **Arduino Leonardo** for professional-grade HID hardware emulation.
+* **Security Focused:** The hardware interface is designed to provide the safest possible mouse movement, making it look like a genuine physical device to any Anti-Cheat.
+* **Performance:** Optimized for low latency, whether you are using CUDA-powered NVIDIA cards or modern AMD hardware.
 
 ### 🎓 Educational Purpose & Hardware Focus
 Modern anti-cheat systems often block virtual mouse inputs. This project demonstrates how software-based restrictions can be bypassed using an **Arduino Hardware Bridge**:
@@ -28,9 +32,12 @@ Modern anti-cheat systems often block virtual mouse inputs. This project demonst
 * **CPU:** Runs on any machine (slower).
 
 ## 🧰 Requirements
-* **NVIDIA:** GTX 10-series+ & [NVIDIA CUDA Toolkit 11.8](https://developer.nvidia.com/cuda-11-8-0-download-archive)
-* **AMD:** DirectX 12 Support
-* **Hardware:** Arduino Leonardo (ATmega32U4) & [Arduino IDE](https://www.arduino.cc/en/software)
+* **GPU (NVIDIA):** GTX 10-series or newer & [NVIDIA CUDA Toolkit 11.8](https://developer.nvidia.com/cuda-11-8-0-download-archive) (Recommended for speed).
+* **GPU (AMD):** DirectX 12 compatible.
+* **Input Method (Choose one):**
+    * **Hardware (Recommended):** Arduino Leonardo (ATmega32U4) for undetectable HID mouse emulation.
+    * **Software:** Standard Windows Mouse API (No extra hardware needed, but less secure).
+* **Software:** [Arduino IDE](https://www.arduino.cc/en/software) (Only if using Arduino).
 
 
 ## 🚀 Pre-setup Steps
