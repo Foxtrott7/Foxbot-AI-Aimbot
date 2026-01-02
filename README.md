@@ -101,13 +101,21 @@ If you have questions, feel free to add me on Discord:
 
 | Category | Variable | Default | Description |
 | :--- | :--- | :--- | :--- |
-| **Visuals** | `screenShotHeight` / `Width` | `320` | Size of the AI detection window. |
-| | `useMask` | `False` | Hides UI elements to avoid false detections. |
-| **Logic** | `aaMovementAmp` | `0.5` | Smoothing: Lower = slower/more natural. |
-| | `confidence` | `0.4` | How sure the AI must be to lock on. |
-| | `headshot_mode` | `True` | Aim for the head instead of center mass. |
-| **System** | `use_arduino` | `False` | Set to `True` for Leonardo Hardware. |
-| | `onnxChoice` | `1` | 1=CPU, 2=AMD, 3=NVIDIA. |
+| **🖥️ Screen** | `screenShotHeight` / `Width` | `320` | Size of the capture area (Square) |
+| | `useMask` | `False` | Hides UI elements (Minimap etc.) |
+| | `maskSide` / `Width` / `Height` | - | Specs for the UI mask |
+| **🎯 Aimbot** | `aaMovementAmp` | `0.45` | Speed of mouse movement (Lower = smoother) |
+| | `confidence` | `0.4` | Detection threshold (0.0 - 1.0) |
+| | `headshot_mode` | `True` | Target the head instead of the chest |
+| | `headshot_offset` | `0.4` | Vertical offset (Higher = higher aim) |
+| | `centerOfScreen` | `True` | Prioritize targets closest to crosshair |
+| **⌨️ Hotkeys** | `hotkeyAimbot` | `PAGEDOWN` | Toggle/Hold key for the Aimbot |
+| | `hotkeyRMB` | `CAPS` | Toggle for RMB-requirement mode |
+| | `aaQuitKey` | `END` | Immediately closes the script |
+| **🏎️ System** | `onnxChoice` | `3` | AI Engine: 1=CPU, 2=AMD, 3=NVIDIA |
+| | `use_arduino` | `True` | Set to `True` to use Leonardo Hardware |
+| | `arduino_port` | `COM7` | The COM port of your Arduino |
+| | `visuals` | `True` | Shows the AI vision window with boxes |
 
 
 ## 🛠️ Troubleshooting
