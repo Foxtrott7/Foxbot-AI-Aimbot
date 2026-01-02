@@ -1,17 +1,9 @@
-
-
-
-
-![Status](https://img.shields.io/badge/Status-Stable-green?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![NVIDIA](https://img.shields.io/badge/GPU-NVIDIA%20CUDA-76B900?style=for-the-badge&logo=nvidia&logoColor=white)
 ![AMD](https://img.shields.io/badge/GPU-AMD%20Support-ED1C24?style=for-the-badge&logo=amd&logoColor=white)
 ![Arduino](https://img.shields.io/badge/Hardware-Arduino%20Leonardo-00979D?style=for-the-badge&logo=arduino&logoColor=white)
 
-
-
 ![Unbenannt](https://github.com/user-attachments/assets/ba9076b8-2fbe-4de0-b8e7-70326b11a08d)
-
 
 # 🎯 Universal Next-Gen AI Aimbot [Arduino & Software Hybrid] 🎮
 
