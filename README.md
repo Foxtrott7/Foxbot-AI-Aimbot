@@ -119,7 +119,7 @@ If you have questions, feel free to add me on Discord:
 ### 💡 Optimization Tips
 
 > [!TIP]
-> **Performance Boost:** We set `visuals = False` by default to ensure the lowest possible input lag. Only enable it if you want to debug the AI detection visually.
+> **Performance Boost:** The option is `visuals = False` by default to ensure the lowest possible input lag. Only enable it if you want to debug the AI detection visually.
 
 > [!TIP]
 > **Accuracy & Sensitivity:** If the bot "shakes" or overshoots, lower your `aaMovementAmp`. Note that your **In-Game Sensitivity** directly affects this: Higher in-game sense requires a lower `aaMovementAmp` to stay smooth. A value between `0.3` and `0.5` is usually the sweet spot.
