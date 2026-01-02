@@ -14,10 +14,8 @@ import serial
 import struct
 import importlib
 
-# PROFESSIONAL IMPORTS
 from utils.general import (non_max_suppression, xyxy2xywh)
 
-# Imports from config.py and gameSelection.py
 import config
 import gameSelection
 
@@ -299,7 +297,6 @@ def start_logic():
         l_color_fin = "green" if latency_ms < 15 else "yellow" if latency_ms < 30 else "red"
         session_device = {1: "CPU", 2: "AMD", 3: "NVIDIA"}.get(config.onnxChoice, "Unknown")
 
-        # SESSION SUMMARY
         print(colored("="*65, "white"))
         print(colored(" SESSION SUMMARY ", "yellow", attrs=['bold', 'reverse']))
         print(f" • Average Speed:   {colored(f'{avg_fps} CPS', 'green')}")

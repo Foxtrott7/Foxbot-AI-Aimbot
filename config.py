@@ -1,50 +1,49 @@
 # --- SCREEN SETTINGS ---
-# Bereich, der gecaptured wird (Quadrat um die Bildschirmmitte)
+# Define the capture zone (A square centered on your screen)
 screenShotHeight = 320
 screenShotWidth = 320
 
-# Maskierung (falls UI-Elemente wie Minimaps stören)
+# UI Masking: Prevents the AI from being distracted by HUD elements like minimaps
 useMask = False
 maskSide = "left"
 maskWidth = 80
 maskHeight = 200
 
 # --- AIMBOT SETTINGS ---
-# Stärke der Mausbewegung (Amplifier)
-aaMovementAmp = 0.45
+# Movement intensity: Controls how "snappy" or smooth the aim feels
+aaMovementAmp = 0.4
 
-# Person Class Confidence (Erkennungsschwelle)
+# Detection Sensitivity: Range 0.0 to 1.0 (Lower = more aggressive detection)
 confidence = 0.4
 
-# Zielt etwas weiter oben Richtung Kopf
+# Target Alignment: If True, the AI focuses on the head area
 headshot_mode = True
 
-# Der Offset-Wert (0.35 = Kopfhöhe, 0.2 = Hals/Brust)
-# Je höher die Zahl, desto weiter oben wird gezielt.
+# Vertical Offset: Adjusts the aim height (0.35: Head | 0.2: Chest)
 headshot_offset = 0.35
 
-# Smartere Auswahl (Mitte des Bildschirms priorisieren)
+# Selection Logic: Focuses on the enemy closest to your crosshair
 centerOfScreen = True
 
 # --- HOTKEYS ---
-# Taste zum Beenden des Scripts
+# Emergency Stop: Closes the script instantly
 aaQuitKey = 'END'
 
-# Taste für RMB-Zwang (Standard: PAGEDOWN)
-hotkeyRMB = 'CAPS'
-
-# Taste zum Aktivieren/Halten des Aimbots (Standard: CAPS)
+# Activation Key: Use this key to toggle or hold the Aimbot
 hotkeyAimbot = 'PAGEDOWN'
 
-# --- SYSTEM & VISUALS ---
-# Fenster mit Boxen anzeigen (True/False)
-visuals = True
+# Toggle Mode: Force the bot to only work while holding RMB or a specific key
+hotkeyRMB = 'CAPS'
 
-# Arduino nutzen (True) oder Software-Maus nutzen (False)
+# --- SYSTEM & VISUALS ---
+# Debug Window: Shows AI vision. Set to 'False' for maximum FPS and lowest latency
+visuals = False
+
+# Hardware Interface: 'True' for Arduino HID, 'False' for Windows Mouse API
 use_arduino = True
 
-# Arduino COM Port
-arduino_port = 'COM7'
+# Serial Connection: Set this to your Arduino's COM Port (e.g., 'COM7')
+arduino_port = '?'
 
-# AI Device: 1 - CPU, 2 - AMD, 3 - NVIDIA
-onnxChoice = 3
+# Processing Engine: 1 = CPU, 2 = AMD (DirectML), 3 = NVIDIA (CUDA)
+onnxChoice = 1
