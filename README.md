@@ -1,6 +1,4 @@
-# 🎯 Universal Next-Gen AI Aimbot
 
-![Status](https://img.shields.io/badge/Status-Stable-green?style=for-the-badge) ![Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D4?style=for-the-badge&logo=windows&logoColor=white) ![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white) ![NVIDIA](https://img.shields.io/badge/GPU-NVIDIA%20CUDA-76B900?style=for-the-badge&logo=nvidia&logoColor=white) ![AMD](https://img.shields.io/badge/GPU-AMD%20Support-ED1C24?style=for-the-badge&logo=amd&logoColor=white) ![License](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)
 
 
 
