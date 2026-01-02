@@ -1,3 +1,7 @@
+![Version](https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Stable-green?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
 ![Unbenannt](https://github.com/user-attachments/assets/ba9076b8-2fbe-4de0-b8e7-70326b11a08d)
 
 
