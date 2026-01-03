@@ -104,16 +104,17 @@ If you have questions, feel free to add me on Discord:
 | :--- | :--- | :--- | :--- |
 | **🏎️ Performance** | `visuals` | `False` | Preview window with AI boxes (Keep `False` for max FPS) |
 | | `onnxChoice` | `1` | Device: 1=CPU, 2=AMD, 3=NVIDIA |
-| **🔌 Hardware** | `use_arduino` | `True` | `True` for Leonardo HID / `False` for win32api |
-| | `arduino_port` | `?` | Needs to be set to your COM Port (e.g. 'COM7') |
-| **🎯 Aiming** | `aaMovementAmp` | `0.4` | Speed/Smoothing. **Highly dependent on In-Game Sense!** |
+| **🔌 Hardware** | `use_arduino` | `False` | `True` for Leonardo HID / `False` for win32api |
+| | `arduino_port` | `'COM?'` | Needs to be set to your COM Port (e.g. 'COM7') |
+| **🎯 Aiming** | `aaMovementAmp` | `0.4` | Speed/Smoothing. **Dependent on In-Game Sense!** |
 | | `confidence` | `0.4` | Detection threshold (Lower = more detections) |
 | | `centerOfScreen`| `True` | Prioritizes targets closest to your crosshair |
 | **🧠 Targeting** | `headshot_mode` | `True` | Toggles between Head and Body aim |
-| | `headshot_offset`| `0.35` | Height adjustment (0.35 = Head, 0.2 = Chest) |
-| **⌨️ Controls** | `hotkeyAimbot` | `PAGEDOWN`| Toggle key to activate/deactivate the bot |
-| | `hotkeyRMB` | `CAPS` | Switch for "Hold-to-Aim" mode |
-| | `aaQuitKey` | `END` | Emergency stop key for the script |
+| | `headshot_offset`| `0.38` | Height adjustment (Values vary by game/character size: 0.38 = Head, 0.2 = Chest) |
+| **⌨️ Controls** | `hotkeyAimbot` | `'CAPS'` | Toggle key to activate/deactivate the bot |
+| | `hotkeyRMB` | `'PAGEDOWN'` | Switch for "Hold-to-Aim" mode |
+| | `hotkeyDelay` | `0.25` | **NEW:** Delay in seconds before Aim kicks in (RMB Mode) |
+| | `aaQuitKey` | `'END'` | Emergency stop key for the script |
 
 ---
 
