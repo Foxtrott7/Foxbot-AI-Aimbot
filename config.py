@@ -37,13 +37,13 @@ hotkeyRMB = 'CAPS'
 
 # --- SYSTEM & VISUALS ---
 # Debug Window: Shows AI vision. Set to 'False' for maximum FPS and lowest latency
-visuals = False
+visuals = True
 
 # Hardware Interface: 'True' for Arduino HID, 'False' for Windows Mouse API
 use_arduino = True
 
 # Serial Connection: Set this to your Arduino's COM Port (e.g., 'COM7')
-arduino_port = '?'
+arduino_port = 'COM7'
 
 # Processing Engine: 1 = CPU, 2 = AMD (DirectML), 3 = NVIDIA (CUDA)
-onnxChoice = 1
+onnxChoice = 3
