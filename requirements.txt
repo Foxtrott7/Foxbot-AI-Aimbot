@@ -1,14 +1,25 @@
-
+# Inference Engine
 onnxruntime-directml
+
+# Core Math & Data
 numpy>=1.26.0
 pandas
+setuptools
+
+# Vision & Camera
 opencv-python
 bettercam
-pyserial
-pywin32
-pyyaml
-termcolor
 
+# PyTorch (Spezial-URL)
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch
 torchvision
+
+# System & Hardware
+pyserial
+pywin32
+pyyaml
+pygetwindow  
+
+# UI & Formatting
+termcolor
