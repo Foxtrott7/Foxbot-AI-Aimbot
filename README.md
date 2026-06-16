@@ -7,6 +7,8 @@
 
 # 🎯 Universal Next-Gen AI Aimbot [Arduino & Software Hybrid] 🎮
 
+[![Download Latest Release](https://img.shields.io/badge/Download-Latest_Release-green?style=for-the-badge&logo=github)](https://github.com/Foxtrott7/Foxbot-AI-Aimbot/releases/latest)
+
 ## 🙌 About the Project
 This tool utilizes **YOLOv5** for high-speed, real-time detection of humanoid characters. While the AI logic is based on the RootKit-Org framework, this project is optimized for flexibility:
 
@@ -49,7 +51,7 @@ If you have questions, feel free to add me on Discord:
 
 
 ## 🚀 Pre-setup Steps
-* **Download:** Extract the repository to a folder of your choice 🗂️.
+* **Download:** Click the green **Download** button at the top or download the source code from the [Latest Release](https://github.com/Foxtrott7/Foxbot-AI-Aimbot/releases/latest) and extract the archive to a folder 🗂️.
 * **Python:** Install [Python 3.11.x](https://www.python.org/downloads/release/python-3110/) (Important: Check **"Add Python to PATH"** during installation!) 🐍.
 * **Hardware Setup (Optional - for Arduino Users):**
     1. **Connect:** Plug your **ATmega32U4-based HID-compatible board** into your PC.
@@ -104,21 +106,21 @@ If you have questions, feel free to add me on Discord:
 
 | Feature | Variable | Default | Description |
 | :--- | :--- | :--- | :--- |
-| **🏎️ Performance** | `visuals` | `False` | Preview window with AI boxes (Keep `False` for max FPS) |
+| **🏎️ Performance** | `visuals` | `True` | Preview window with AI boxes (Keep `False` for max FPS) |
 | | `onnxChoice` | `1` | Device: 1=CPU, 2=AMD, 3=NVIDIA |
 | **🔌 Hardware** | `use_arduino` | `False` | `True` for Leonardo HID / `False` for win32api |
-| | `arduino_port` | `'COM?'` | Needs to be set to your COM Port (e.g. 'COM7') |
-| **🎯 Aiming** | `aaMovementAmp` | `0.4` | Speed/Smoothing. **Dependent on In-Game Sense!** |
-| | `confidence` | `0.4` | Detection threshold (Lower = more detections) |
+| | `arduino_port` | `'COM9'` | Needs to be set to your COM Port (e.g. 'COM7') |
+| **🎯 Aiming** | `aaMovementAmp` | `0.35` | Speed/Smoothing. **Dependent on In-Game Sense!** |
+| | `confidence` | `0.7` | Detection threshold (Lower = more aggressive detection) |
 | | `centerOfScreen`| `True` | Prioritizes targets closest to your crosshair |
-| **🧠 Targeting** | `headshot_mode` | `True` | Toggles between Head and Body aim |
+| **🧠 Targeting** | `headshot_mode` | `False` | Toggles between Head and Body aim |
 | | `headshot_offset`| `0.38` | Height adjustment (Values vary by game/character size: 0.38 = Head, 0.2 = Chest) |
 | **🔫 Triggerbot** | `triggerbot_enabled` | `False` | Independent auto-fire status |
 | | `trigger_radius` | `15` | **NEW:** Maximum pixel distance around target point for instant firing |
 | **⌨️ Controls** | `hotkeyAimbot` | `'CAPS'` | Toggle key to activate/deactivate the bot |
 | | `hotkeyRMB` | `'PAGEDOWN'` | Switch for "Hold-to-Aim" mode |
 | | `hotkeyDelay` | `0.25` | Delay in seconds before Aim kicks in (RMB Mode) |
-| | `hotkeyTrigger` | `'INSERT'` | Toggle key to activate/deactivate the Triggerbot |
+| | `hotkeyTrigger` | `'INSERT'` | **NEW:** Toggle key to activate/deactivate the Triggerbot |
 | | `aaQuitKey` | `'END'` | Emergency stop key for the script |
 
 ---
