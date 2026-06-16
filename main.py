@@ -13,6 +13,7 @@ import torch
 import serial
 import struct
 import importlib
+import math
 
 from utils.general import (non_max_suppression, xyxy2xywh)
 
@@ -23,7 +24,7 @@ banner_text = r'''
     _______             __          __   
    / ____/___  _  __   / /_  ____  / /_  
   / /_  / __ \| |/_/  / __ \/ __ \/ __/  
- / __/ / /_/ />  <   / /_/ / /_/ / /_    
+ / /_  / /_/ />  <   / /_/ / /_/ / /_    
 /_/    \____/_/|_|  /_.___/\____/\__/    v1.1.1'''
 
 def get_vk_code(key_name):
@@ -66,7 +67,7 @@ def save_config_value(variable, new_value):
             if line.strip().startswith(f"{variable} ="):
                 if isinstance(new_value, bool):
                     f.write(f"{variable} = {new_value}\n")
-                elif variable in ["onnxChoice", "aaMovementAmp", "confidence", "headshot_offset", "hotkeyDelay"]:
+                elif variable in ["onnxChoice", "aaMovementAmp", "confidence", "headshot_offset", "hotkeyDelay", "trigger_radius"]:
                     f.write(f"{variable} = {new_value}\n")
                 else:
                     f.write(f"{variable} = '{new_value}'\n")
@@ -78,12 +79,13 @@ def print_interface():
     importlib.reload(config)
     os.system('cls' if os.name == 'nt' else 'clear')
     print(colored(banner_text, "yellow", attrs=['bold']))
-    print(colored("="*65, "white"))
+    print(colored("="*72, "white"))
     print(colored("CONTROLS ACTIVE:", "white", attrs=['bold']))
     print(f" • [{colored(config.hotkeyAimbot.upper(), 'green')}]: Aimbot Toggle")
     print(f" • [{colored(config.hotkeyRMB.upper(), 'magenta')}]: Mode Toggle")
+    print(f" • [{colored(config.hotkeyTrigger.upper(), 'cyan')}]: Triggerbot Toggle")
     print(f" • [{colored(config.aaQuitKey.upper(), 'red')}]: Exit Script")
-    print(colored("="*65 + "\n", "white"))
+    print(colored("="*72 + "\n", "white"))
 
 def start_logic():
     os.system('') 
@@ -102,13 +104,15 @@ def start_logic():
         print(f" 3. Headshot Mode:   {colored('Yes' if config.headshot_mode else 'No', 'green' if config.headshot_mode else 'red')}")
         print(f" 4. Head Offset:     {colored(config.headshot_offset, 'yellow')}")
         print(f" 5. RMB Delay:       {colored(getattr(config, 'hotkeyDelay', 0.25), 'yellow')}")
-        print(f" 6. Visuals:         {colored('Yes' if config.visuals else 'No', 'green' if config.visuals else 'red')}")
-        print(f" 7. Arduino Mode:    {colored('ENABLED' if config.use_arduino else 'DISABLED', 'green' if config.use_arduino else 'cyan')}")
-        print(f" 8. COM Port:        {colored(config.arduino_port if config.use_arduino else 'N/A', 'cyan')}")
-        print(f" 9. AI Device:       {colored(current_device, 'magenta')}")
-        print(f" 10. Toggle Key:     {colored(config.hotkeyAimbot, 'green')}")
-        print(f" 11. Mode Key:       {colored(config.hotkeyRMB, 'magenta')}")
-        print(f" 12. Exit Key:       {colored(config.aaQuitKey, 'red')}")
+        print(f" 6. Trigger Radius:  {colored(getattr(config, 'trigger_radius', 15), 'yellow')} px")
+        print(f" 7. Visuals:         {colored('Yes' if config.visuals else 'No', 'green' if config.visuals else 'red')}")
+        print(f" 8. Arduino Mode:    {colored('ENABLED' if config.use_arduino else 'DISABLED', 'green' if config.use_arduino else 'cyan')}")
+        print(f" 9. COM Port:        {colored(config.arduino_port if config.use_arduino else 'N/A', 'cyan')}")
+        print(f"10. AI Device:       {colored(current_device, 'magenta')}")
+        print(f"11. Toggle Key:      {colored(config.hotkeyAimbot, 'green')}")
+        print(f"12. Mode Key:        {colored(config.hotkeyRMB, 'magenta')}")
+        print(f"13. Trigger Key:     {colored(config.hotkeyTrigger, 'cyan')}")
+        print(f"14. Exit Key:        {colored(config.aaQuitKey, 'red')}")
         print(colored("-" * 65, "white"))
         print("Press " + colored("ENTER", "green", attrs=['bold']) + " to Start or " + colored("'s'", "yellow", attrs=['bold']) + " for Settings.")
         
@@ -127,23 +131,27 @@ def start_logic():
                 if val: save_config_value("headshot_offset", float(val))
                 val = input(f" 5. RMB Delay ({getattr(config, 'hotkeyDelay', 0.25)}): ");
                 if val: save_config_value("hotkeyDelay", float(val))
-                val = input(f" 6. Visuals (y/n): ").lower(); 
+                val = input(f" 6. Trigger Radius px ({getattr(config, 'trigger_radius', 15)}): ");
+                if val: save_config_value("trigger_radius", int(val))
+                val = input(f" 7. Visuals (y/n): ").lower(); 
                 if val == 'y': save_config_value("visuals", True)
                 elif val == 'n': save_config_value("visuals", False)
-                val = input(f" 7. Arduino Mode (y/n): ").lower();
+                val = input(f" 8. Arduino Mode (y/n): ").lower();
                 if val == 'y': save_config_value("use_arduino", True)
                 elif val == 'n': save_config_value("use_arduino", False)
-                val = input(f" 8. COM Port ({config.arduino_port}): "); 
+                val = input(f" 9. COM Port ({config.arduino_port}): "); 
                 if val: save_config_value("arduino_port", val)
-                val = input(f" 9. AI Device (CPU, AMD, NVIDIA): ").strip().upper(); 
+                val = input(f"10. AI Device (CPU, AMD, NVIDIA): ").strip().upper(); 
                 if val == "CPU": save_config_value("onnxChoice", 1)
                 elif val == "AMD": save_config_value("onnxChoice", 2)
                 elif val == "NVIDIA": save_config_value("onnxChoice", 3)
-                val = input(f" 10. Toggle Key ({config.hotkeyAimbot}): "); 
+                val = input(f"11. Toggle Key ({config.hotkeyAimbot}): "); 
                 if val: save_config_value("hotkeyAimbot", val.upper())
-                val = input(f" 11. Mode Key ({config.hotkeyRMB}): "); 
+                val = input(f"12. Mode Key ({config.hotkeyRMB}): "); 
                 if val: save_config_value("hotkeyRMB", val.upper())
-                val = input(f" 12. Exit Key ({config.aaQuitKey}): "); 
+                val = input(f"13. Trigger Key ({config.hotkeyTrigger}): "); 
+                if val: save_config_value("hotkeyTrigger", val.upper())
+                val = input(f"14. Exit Key ({config.aaQuitKey}): "); 
                 if val: save_config_value("aaQuitKey", val.upper())
                 print(colored("\n[OK] Settings Saved!", "green")); time.sleep(0.5); continue 
             except Exception as e:
@@ -182,6 +190,7 @@ def start_logic():
     
     require_rmb = False         
     aimbot_enabled = False
+    triggerbot_enabled = False
     latency_ms = 0.0
     current_cps = 0
     window_name = "Aimbot Visuals"
@@ -195,10 +204,13 @@ def start_logic():
             vkey_quit = get_vk_code(config.aaQuitKey)
             vkey_mode = get_vk_code(config.hotkeyRMB)
             vkey_aim = get_vk_code(config.hotkeyAimbot)
+            vkey_trigger = get_vk_code(config.hotkeyTrigger)
 
             if win32api.GetAsyncKeyState(vkey_quit) != 0: break
             if win32api.GetAsyncKeyState(vkey_mode) & 1: 
                 require_rmb = not require_rmb; print_interface()
+            if win32api.GetAsyncKeyState(vkey_trigger) & 1:
+                triggerbot_enabled = not triggerbot_enabled; print_interface()
 
             if config.hotkeyAimbot.upper() == "CAPS":
                 aimbot_active = win32api.GetKeyState(0x14) & 1
@@ -226,6 +238,8 @@ def start_logic():
 
             targets_found = len(pred[0]) if len(pred) > 0 else 0
             rmb_pressed = win32api.GetAsyncKeyState(0x02) < 0
+            crosshair_on_target = False
+            allowed_radius = getattr(config, 'trigger_radius', 15)
 
             if targets_found > 0:
                 detections = pred[0]
@@ -275,18 +289,30 @@ def start_logic():
                             else:
                                 win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, tx, ty, 0, 0)
 
+                        # Triggerbot-Radius Check
+                        distance_to_target = math.sqrt((target_x - cWidth)**2 + (target_y - cHeight)**2)
+                        if distance_to_target <= allowed_radius:
+                            crosshair_on_target = True
+
                     if config.visuals and display_frame is not None:
                         color = (115, 244, 113) if i == 0 else (244, 113, 116)
                         cv2.rectangle(display_frame, (int(xMid-box_w/2), int(yMid-box_h/2)), (int(xMid+box_w/2), int(yMid+box_h/2)), color, 2)
                         if i == 0:
                             cv2.line(display_frame, (int(cWidth), int(cHeight)), (int(target_x), int(target_y)), (0, 255, 255), 1)
                             cv2.circle(display_frame, (int(target_x), int(target_y)), 3, (0, 0, 255), -1)
+                            cv2.circle(display_frame, (int(target_x), int(target_y)), int(allowed_radius), (255, 0, 255), 1)
+
+            # Triggerbot Logik: Instant
+            if triggerbot_enabled and crosshair_on_target:
+                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
 
             if config.visuals and display_frame is not None:
                 cv2.putText(display_frame, f"CPS: {current_cps}", (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
                 status_text = "AIM: ACTIVE" if aimbot_active else "AIM: INACTIVE"
                 status_color = (0, 255, 0) if aimbot_active else (0, 0, 255)
                 cv2.putText(display_frame, status_text, (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.6, status_color, 1, cv2.LINE_AA)
+                
                 cv2.imshow(window_name, display_frame); cv2.waitKey(1)
 
             latency_ms = (time.perf_counter() - loop_start) * 1000
@@ -295,9 +321,10 @@ def start_logic():
                 current_cps = int(count / (time.time() - sTime))
                 s_mode = colored(f"{'RMB-REQ' if require_rmb else 'ALWAYS'}", "cyan" if require_rmb else "yellow")
                 s_aim = colored(f"{'ON' if aimbot_active else 'OFF'}", "green" if aimbot_active else "red")
+                s_trig = colored(f"{'ON' if triggerbot_enabled else 'OFF'}", "cyan" if triggerbot_enabled else "red")
                 s_rmb = colored(f"{'DOWN' if rmb_pressed else 'UP'}", "green" if rmb_pressed else "red")
                 l_text = colored(f"{latency_ms:>4.1f}ms", "green" if latency_ms < 15 else "yellow" if latency_ms < 30 else "red")
-                sys.stdout.write(f"\r[STATUS] Mode:{s_mode} | Aim:{s_aim} | RMB:{s_rmb} | CPS:{current_cps} | LAT:{l_text}\033[K"); sys.stdout.flush()
+                sys.stdout.write(f"\r[STATUS] Mode:{s_mode} | Trig:{s_trig} | Aim:{s_aim} | RMB:{s_rmb} | CPS:{current_cps} | LAT:{l_text}\033[K"); sys.stdout.flush()
                 count, sTime = 0, time.time()
 
     except KeyboardInterrupt: pass

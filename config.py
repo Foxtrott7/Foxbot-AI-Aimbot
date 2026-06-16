@@ -25,6 +25,16 @@ headshot_offset = 0.38
 # Selection Logic: Focuses on the enemy closest to your crosshair
 centerOfScreen = True
 
+# --- TRIGGERBOT SETTINGS ---
+# Enable/Disable Triggerbot (independent of Aimbot)
+triggerbot_enabled = False
+
+# Hotkey to toggle Triggerbot
+hotkeyTrigger = 'INSERT'
+
+# Trigger Radius (Pixels): The maximum distance around the target point for instant firing
+trigger_radius = 15
+
 # --- HOTKEYS ---
 # Emergency Stop: Closes the script instantly
 aaQuitKey = 'END'

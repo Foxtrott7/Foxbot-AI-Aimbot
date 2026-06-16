@@ -87,6 +87,7 @@ If you have questions, feel free to add me on Discord:
     * **Arduino Mode:** When prompted, type **'y'** and press **Enter**.
     * **COM Port:** Enter your port (e.g., `COM3`).
     * **Device:** Select your engine (`CPU`, `AMD`, or `NVIDIA`).
+    * **Triggerbot Setup:** Configure your preferred trigger activation key and pixel radius tolerance.
 5. **Final Launch 🚀:** Press **ENTER** and choose your game window to arm the bot, then switch to your game.
 
 > [!TIP]
@@ -95,6 +96,7 @@ If you have questions, feel free to add me on Discord:
 ## ⌨️ Hotkeys & Controls (Default)
 * **[CAPS] 🎯:** Master Switch (Toggles the Aimbot ON/OFF).
 * **[PAGEDOWN] 🔄:** Mode Toggle (Always-On vs. Hold-to-Aim).
+* **[INSERT] 🔫:** Triggerbot Switch (Toggles Auto-Fire ON/OFF).
 * **[END] 💣:** Exit (Closes the script immediately).
 
 
@@ -111,9 +113,12 @@ If you have questions, feel free to add me on Discord:
 | | `centerOfScreen`| `True` | Prioritizes targets closest to your crosshair |
 | **🧠 Targeting** | `headshot_mode` | `True` | Toggles between Head and Body aim |
 | | `headshot_offset`| `0.38` | Height adjustment (Values vary by game/character size: 0.38 = Head, 0.2 = Chest) |
+| **🔫 Triggerbot** | `triggerbot_enabled` | `False` | Independent auto-fire status |
+| | `trigger_radius` | `15` | **NEW:** Maximum pixel distance around target point for instant firing |
 | **⌨️ Controls** | `hotkeyAimbot` | `'CAPS'` | Toggle key to activate/deactivate the bot |
 | | `hotkeyRMB` | `'PAGEDOWN'` | Switch for "Hold-to-Aim" mode |
-| | `hotkeyDelay` | `0.25` | **NEW:** Delay in seconds before Aim kicks in (RMB Mode) |
+| | `hotkeyDelay` | `0.25` | Delay in seconds before Aim kicks in (RMB Mode) |
+| | `hotkeyTrigger` | `'INSERT'` | Toggle key to activate/deactivate the Triggerbot |
 | | `aaQuitKey` | `'END'` | Emergency stop key for the script |
 
 ---
@@ -138,7 +143,7 @@ Features marked with `[x]` are already integrated and working:
 * [x] **Cross-Platform GPU:** Acceleration via CUDA (NVIDIA) and DirectML (AMD) 
 * [x] **S-Menu Configuration:** Change settings like Amp and Confidence on the fly 
 * [x] **Adjustable Smoothing:** Integrated movement amplification for better control 
-* [ ] **Triggerbot:** Auto-fire when a target is locked 🔫
+* [x] **Triggerbot:** Auto-fire when a target is locked 🔫 *(New: Instant execution via custom pixel radius)*
 * [ ] **Custom Game Models:** Dedicated AI weights for different games
 * [ ] **TensorRT Support:** Conversion to `.engine` for maximum NVIDIA performance 🏎️
 * [ ] **Bezier Curves:** Researching human-like mouse paths (Bezier/Splines) 
