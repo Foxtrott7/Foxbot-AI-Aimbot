@@ -52,7 +52,9 @@ If you have questions, feel free to add me on Discord:
 
 ## 🚀 Pre-setup Steps
 * **Download:** Click the green **Download** button at the top or download the source code from the [Latest Release](https://github.com/Foxtrott7/Foxbot-AI-Aimbot/releases/latest) and extract the archive to a folder 🗂️.
+
 * **Python:** Install [Python 3.11.x](https://www.python.org/downloads/release/python-3110/) (Important: Check **"Add Python to PATH"** during installation!) 🐍.
+  
 * **Hardware Setup (Optional - for Arduino Users):**
     1. **Connect:** Plug your **ATmega32U4-based board** (e.g., Leonardo, Pro Micro) into your PC.
     2. **Open Sketch:** Open the file `Arduino_Mouse_HID.ino` (located in the Arduino folder) with the [Arduino IDE](https://www.arduino.cc/en/software).
@@ -80,15 +82,19 @@ If you have questions, feel free to add me on Discord:
 ## 🔌 How to Run & Configure
 
 1. **Game Preparation:** Set your game to **Windowed** or **Borderless Window** mode. 🖥️
-2. **Terminal Navigation:** Open PowerShell or CMD and navigate to the project folder:
+   
+3. **Terminal Navigation:** Open PowerShell or CMD and navigate to the project folder:
     * **Option A (Easy):** Type `cd ` (with a space), drag your folder into the terminal, and press **Enter**.
     * **Option B (Manual):** Type the full path, e.g., `cd "C:\Users\Name\Documents\Foxbot-AI"`.
-3. **Start:** Run the script with: `python main.py`
-4. **The S-Menu 🛠️:** Press **'S'** for the interactive setup:
+      
+4. **Start:** Run the script with: `python main.py`
+   
+6. **The S-Menu 🛠️:** Press **'S'** for the interactive setup:
     * **Navigation:** Type your value and press **ENTER** to confirm, or simply press **ENTER** to skip a setting and keep its default.
     * **Arduino Users:** When prompted, enable Arduino mode (`y`) and enter your COM Port (e.g., `COM3` or `COM9`).
     * **Engine Selection:** Choose your hardware engine when prompted (`1` = CPU, `2` = AMD, `3` = NVIDIA).
-5. **Final Launch 🚀:** Press **ENTER** and choose your game window to arm the bot, then switch to your game.
+      
+7. **Final Launch 🚀:** Press **ENTER** and choose your game window to arm the bot, then switch to your game.
 
 > [!TIP]
 > You can skip the S-Menu entirely by manually editing the `config.py` file with any text editor to save your preferred settings without the script.
