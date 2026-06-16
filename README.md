@@ -85,11 +85,9 @@ If you have questions, feel free to add me on Discord:
     * **Option B (Manual):** Type the full path, e.g., `cd "C:\Users\Name\Documents\Foxbot-AI"`.
 3. **Start:** Run the script with: `python main.py`
 4. **The S-Menu 🛠️:** Press **'S'** for the interactive setup:
-    * Skip settings by pressing **ENTER**.
-    * **Arduino Mode:** When prompted, type **'y'** and press **Enter**.
-    * **COM Port:** Enter your port (e.g., `COM3`).
-    * **Device:** Select your engine (`CPU`, `AMD`, or `NVIDIA`).
-    * **Triggerbot Setup:** Configure your preferred trigger activation key and pixel radius tolerance.
+    * **Navigation:** Type your value and press **ENTER** to confirm, or simply press **ENTER** to skip a setting and keep its default.
+    * **Arduino Users:** When prompted, enable Arduino mode (`y`) and enter your COM Port (e.g., `COM3` or `COM9`).
+    * **Engine Selection:** Choose your hardware engine when prompted (`1` = CPU, `2` = AMD, `3` = NVIDIA).
 5. **Final Launch 🚀:** Press **ENTER** and choose your game window to arm the bot, then switch to your game.
 
 > [!TIP]
@@ -106,12 +104,12 @@ If you have questions, feel free to add me on Discord:
 
 | Feature | Variable | Default | Description |
 | :--- | :--- | :--- | :--- |
-| **🏎️ Performance** | `visuals` | `True` | Preview window with AI boxes (Keep `False` for max FPS) |
+| **🏎️ Performance** | `visuals` | `False` | Preview window with AI boxes (Keep `False` for max FPS) |
 | | `onnxChoice` | `1` | Device: 1=CPU, 2=AMD, 3=NVIDIA |
 | **🔌 Hardware** | `use_arduino` | `False` | `True` for Leonardo HID / `False` for win32api |
-| | `arduino_port` | `'COM9'` | Needs to be set to your COM Port (e.g. 'COM7') |
-| **🎯 Aiming** | `aaMovementAmp` | `0.35` | Speed/Smoothing. **Dependent on In-Game Sense!** |
-| | `confidence` | `0.7` | Detection threshold (Lower = more aggressive detection) |
+| | `arduino_port` | `'COM?'` | Needs to be set to your COM Port (e.g. 'COM7') |
+| **🎯 Aiming** | `aaMovementAmp` | `0.4` | Speed/Smoothing. **Dependent on In-Game Sense!** |
+| | `confidence` | `0.4` | Detection threshold (Lower = more aggressive detection) |
 | | `centerOfScreen`| `True` | Prioritizes targets closest to your crosshair |
 | **🧠 Targeting** | `headshot_mode` | `False` | Toggles between Head and Body aim |
 | | `headshot_offset`| `0.38` | Height adjustment (Values vary by game/character size: 0.38 = Head, 0.2 = Chest) |
