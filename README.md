@@ -66,7 +66,7 @@ If you have questions, feel free to add me on Discord:
     * **Nvidia GPU Users:**
         ```powershell
         pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url [https://download.pytorch.org/whl/cu118](https://download.pytorch.org/whl/cu118)
-        pip install onnxruntime-gpu
+        pip install onnxruntime-gpu==1.16.3
         pip install cupy-cuda11x
         ```
     * **AMD or CPU Users:**
