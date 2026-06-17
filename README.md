@@ -118,7 +118,7 @@ If you have questions, feel free to add me on Discord:
 | | `onnxChoice` | `1` | Device: 1=CPU, 2=AMD, 3=NVIDIA |
 | **🔌 Hardware** | `use_arduino` | `False` | `True` for Leonardo HID / `False` for win32api |
 | | `arduino_port` | `'COM?'` | Needs to be set to your COM Port (e.g. 'COM7') |
-| **🎯 Aiming** | `aaMovementAmp` | `0.4` | Speed/Smoothing. **Dependent on In-Game Sense!** |
+| **🎯 Aiming** | `MovementAmp` | `0.4` | Speed/Smoothing. **Dependent on In-Game Sense!** |
 | | `confidence` | `0.4` | Detection threshold (Lower = more aggressive detection) |
 | | `centerOfScreen`| `True` | Prioritizes targets closest to your crosshair |
 | **🧠 Targeting** | `headshot_mode` | `False` | Toggles between Head and Body aim |
@@ -129,7 +129,7 @@ If you have questions, feel free to add me on Discord:
 | | `hotkeyRMB` | `'PAGEDOWN'` | Switch for "Hold-to-Aim" mode |
 | | `hotkeyDelay` | `0.25` | Delay in seconds before Aim kicks in (RMB Mode) |
 | | `hotkeyTrigger` | `'INSERT'` | **NEW:** Toggle key to activate/deactivate the Triggerbot |
-| | `aaQuitKey` | `'END'` | Emergency stop key for the script |
+| | `QuitKey` | `'END'` | Emergency stop key for the script |
 
 ---
 
@@ -139,7 +139,7 @@ If you have questions, feel free to add me on Discord:
 > **Performance Boost:** The option is `visuals = False` by default to ensure the lowest possible input lag. Only enable it if you want to debug the AI detection visually.
 
 > [!TIP]
-> **Accuracy & Sensitivity:** If the bot "shakes" or overshoots, lower your `aaMovementAmp`. Note that your **In-Game Sensitivity** directly affects this: Higher in-game sense requires a lower `aaMovementAmp` to stay smooth. A value between `0.3` and `0.5` is usually the sweet spot.
+> **Accuracy & Sensitivity:** If the bot "shakes" or overshoots, lower your `MovementAmp`. Note that your **In-Game Sensitivity** directly affects this: Higher in-game sense requires a lower `MovementAmp` to stay smooth. A value between `0.3` and `0.5` is usually the sweet spot.
 
 > [!TIP]
 > **Finding your COM Port:** If you are using an Arduino, open the **Windows Device Manager**, look under **Ports (COM & LPT)**, and find the number assigned to your "Arduino Leonardo". Enter this in the `config.py` (e.g., `'COM7'`).
