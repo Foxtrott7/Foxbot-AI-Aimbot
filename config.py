@@ -11,10 +11,10 @@ maskHeight = 200
 
 # --- AIMBOT SETTINGS ---
 # Movement intensity: Controls how "snappy" or smooth the aim feels
-aaMovementAmp = 0.6
+aaMovementAmp = 0.35
 
 # Detection Sensitivity: Range 0.0 to 1.0 (Lower = more aggressive detection)
-confidence = 0.4
+confidence = 0.35
 
 # Target Alignment: If True, the AI focuses on the head area
 headshot_mode = True
@@ -50,13 +50,13 @@ hotkeyDelay = 0.25
 
 # --- SYSTEM & VISUALS ---
 # Debug Window: Shows AI vision. Set to 'False' for maximum FPS and lowest latency
-visuals = True
+visuals = False
 
 # Hardware Interface: 'True' for Arduino HID, 'False' for Windows Mouse API
-use_arduino = True
+use_arduino = False
 
 # Serial Connection: Set this to your Arduino's COM Port (e.g., 'COM7')
-arduino_port = 'COM9'
+arduino_port = 'COM?'
 
 # Processing Engine: 1 = CPU, 2 = AMD (DirectML), 3 = NVIDIA (CUDA)
-onnxChoice = 3
+onnxChoice = 1
