@@ -11,7 +11,7 @@ maskHeight = 200
 
 # --- AIMBOT SETTINGS ---
 # Movement intensity: Controls how "snappy" or smooth the aim feels
-aaMovementAmp = 0.35
+movementAmp = 0.35
 
 # Detection Sensitivity: Range 0.0 to 1.0 (Lower = more aggressive detection)
 confidence = 0.35
@@ -37,7 +37,7 @@ trigger_radius = 15
 
 # --- HOTKEYS ---
 # Emergency Stop: Closes the script instantly
-aaQuitKey = 'END'
+quitKey = 'END'
 
 # Activation Key: Use this key to toggle or hold the Aimbot
 hotkeyAimbot = 'CAPS'

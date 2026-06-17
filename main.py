@@ -25,7 +25,7 @@ banner_text = r'''
    / ____/___  _  __   / /_  ____  / /_  
   / /_  / __ \| |/_/  / __ \/ __ \/ __/  
  / /_  / /_/ />  <   / /_/ / /_/ / /_    
-/_/    \____/_/|_|  /_.___/\____/\__/ v1.1.1'''
+/_/    \____/_/|_|  /_.___/\____/ \__/ v1.1.1'''
 
 def get_vk_code(key_name):
     key_str = str(key_name).upper().strip()
@@ -67,7 +67,7 @@ def save_config_value(variable, new_value):
             if line.strip().startswith(f"{variable} ="):
                 if isinstance(new_value, bool):
                     f.write(f"{variable} = {new_value}\n")
-                elif variable in ["onnxChoice", "aaMovementAmp", "confidence", "headshot_offset", "hotkeyDelay", "trigger_radius"]:
+                elif variable in ["onnxChoice", "movementAmp", "confidence", "headshot_offset", "hotkeyDelay", "trigger_radius"]:
                     f.write(f"{variable} = {new_value}\n")
                 else:
                     f.write(f"{variable} = '{new_value}'\n")
@@ -84,7 +84,7 @@ def print_interface():
     print(f" • [{colored(config.hotkeyAimbot.upper(), 'green')}]: Aimbot Toggle")
     print(f" • [{colored(config.hotkeyRMB.upper(), 'magenta')}]: Mode Toggle")
     print(f" • [{colored(config.hotkeyTrigger.upper(), 'cyan')}]: Triggerbot Toggle")
-    print(f" • [{colored(config.aaQuitKey.upper(), 'red')}]: Exit Script")
+    print(f" • [{colored(config.quitKey.upper(), 'red')}]: Exit Script")
     print(colored("="*72 + "\n", "white"))
 
 def start_logic():
@@ -99,7 +99,7 @@ def start_logic():
         current_device = device_map.get(config.onnxChoice, "Unknown")
 
         print(colored("CURRENT CONFIGURATION:", "white", attrs=['bold']))
-        print(f" 1. Mouse Amp:       {colored(config.aaMovementAmp, 'yellow')}")
+        print(f" 1. Mouse Amp:       {colored(config.movementAmp, 'yellow')}")
         print(f" 2. Confidence:      {colored(config.confidence, 'yellow')}")
         print(f" 3. Headshot Mode:   {colored('Yes' if config.headshot_mode else 'No', 'green' if config.headshot_mode else 'red')}")
         print(f" 4. Head Offset:     {colored(config.headshot_offset, 'yellow')}")
@@ -112,7 +112,7 @@ def start_logic():
         print(f"11. Toggle Key:      {colored(config.hotkeyAimbot, 'green')}")
         print(f"12. Mode Key:        {colored(config.hotkeyRMB, 'magenta')}")
         print(f"13. Trigger Key:     {colored(config.hotkeyTrigger, 'cyan')}")
-        print(f"14. Exit Key:        {colored(config.aaQuitKey, 'red')}")
+        print(f"14. Exit Key:        {colored(config.quitKey, 'red')}")
         print(colored("-" * 65, "white"))
         print("Press " + colored("ENTER", "green", attrs=['bold']) + " to Start or " + colored("'s'", "yellow", attrs=['bold']) + " for Settings.")
         
@@ -120,8 +120,8 @@ def start_logic():
         if user_input == 's':
             try:
                 print(colored("\nSETTINGS:", "white", attrs=['bold']))
-                val = input(f" 1. Mouse Amp ({config.aaMovementAmp}): "); 
-                if val: save_config_value("aaMovementAmp", float(val))
+                val = input(f" 1. Mouse Amp ({config.movementAmp}): "); 
+                if val: save_config_value("movementAmp", float(val))
                 val = input(f" 2. Confidence ({config.confidence}): "); 
                 if val: save_config_value("confidence", float(val))
                 val = input(f" 3. Headshot Mode (y/n): ").lower(); 
@@ -151,8 +151,8 @@ def start_logic():
                 if val: save_config_value("hotkeyRMB", val.upper())
                 val = input(f"13. Trigger Key ({config.hotkeyTrigger}): "); 
                 if val: save_config_value("hotkeyTrigger", val.upper())
-                val = input(f"14. Exit Key ({config.aaQuitKey}): "); 
-                if val: save_config_value("aaQuitKey", val.upper())
+                val = input(f"14. Exit Key ({config.quitKey}): "); 
+                if val: save_config_value("quitKey", val.upper())
                 print(colored("\n[OK] Settings Saved!", "green")); time.sleep(0.5); continue 
             except Exception as e:
                 print(colored(f"Error: {e}", "red")); time.sleep(2)
@@ -201,7 +201,7 @@ def start_logic():
     try:
         while True:
             loop_start = time.perf_counter()
-            vkey_quit = get_vk_code(config.aaQuitKey)
+            vkey_quit = get_vk_code(config.quitKey)
             vkey_mode = get_vk_code(config.hotkeyRMB)
             vkey_aim = get_vk_code(config.hotkeyAimbot)
             vkey_trigger = get_vk_code(config.hotkeyTrigger)
@@ -277,8 +277,8 @@ def start_logic():
                             rmb_ok = True
 
                         if aimbot_active and rmb_ok:
-                            tx = int((mouseMove[0] * config.aaMovementAmp) / 1.5)
-                            ty = int((mouseMove[1] * config.aaMovementAmp) / 1.5)
+                            tx = int((mouseMove[0] * config.movementAmp) / 1.5)
+                            ty = int((mouseMove[1] * config.movementAmp) / 1.5)
                             if config.use_arduino and arduino:
                                 tx_clamp = max(min(tx, 127), -127)
                                 ty_clamp = max(min(ty, 127), -127)
@@ -312,10 +312,10 @@ def start_logic():
                     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
 
             if config.visuals and display_frame is not None:
-                cv2.putText(display_frame, f"CPS: {current_cps}", (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
+                cv2.putText(display_frame, f"CPS: {current_cps}", (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
                 status_text = "AIM: ACTIVE" if aimbot_active else "AIM: INACTIVE"
                 status_color = (0, 255, 0) if aimbot_active else (0, 0, 255)
-                cv2.putText(display_frame, status_text, (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.6, status_color, 1, cv2.LINE_AA)
+                cv2.putText(display_frame, status_text, (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.6, status_color, 1)
                 
                 cv2.imshow(window_name, display_frame); cv2.waitKey(1)
 
