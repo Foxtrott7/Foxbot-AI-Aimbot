@@ -25,7 +25,7 @@ banner_text = r'''
    / ____/___  _  __   / /_  ____  / /_  
   / /_  / __ \| |/_/  / __ \/ __ \/ __/  
  / /_  / /_/ />  <   / /_/ / /_/ / /_    
-/_/    \____/_/|_|  /_.___/\____/\__/    v1.1.1'''
+/_/    \____/_/|_|  /_.___/\____/\__/ v1.1.1'''
 
 def get_vk_code(key_name):
     key_str = str(key_name).upper().strip()
@@ -283,14 +283,12 @@ def start_logic():
                                 tx_clamp = max(min(tx, 127), -127)
                                 ty_clamp = max(min(ty, 127), -127)
                                 try:
-                                    # Geändert von 'bb' auf 'bbb' (Letztes Byte ist 0 für kein Klick beim Bewegen)
                                     arduino.write(struct.pack('bbb', tx_clamp, ty_clamp, 0))
                                     arduino.flush()
                                 except: pass
                             else:
                                 win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, tx, ty, 0, 0)
 
-                        # Triggerbot-Radius Check
                         distance_to_target = math.sqrt((target_x - cWidth)**2 + (target_y - cHeight)**2)
                         if distance_to_target <= allowed_radius:
                             crosshair_on_target = True
@@ -303,11 +301,9 @@ def start_logic():
                             cv2.circle(display_frame, (int(target_x), int(target_y)), 3, (0, 0, 255), -1)
                             cv2.circle(display_frame, (int(target_x), int(target_y)), int(allowed_radius), (255, 0, 255), 1)
 
-            # Triggerbot Logik: Unterstützt jetzt Arduino ('bbb') und Windows-API Fallback
             if triggerbot_enabled and crosshair_on_target:
                 if config.use_arduino and arduino:
                     try:
-                        # 0 Bewegung, aber Klick-Byte (drittes Byte) auf 1 gesetzt
                         arduino.write(struct.pack('bbb', 0, 0, 1))
                         arduino.flush()
                     except: pass
