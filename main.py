@@ -1,3 +1,7 @@
+import warnings
+# Unterdrückt die fälschliche Windows 11 Warnung von ONNX Runtime
+warnings.filterwarnings("ignore", category=UserWarning, module="onnxruntime")
+
 import onnxruntime as ort
 import numpy as np
 import gc
@@ -25,7 +29,7 @@ banner_text = r'''
    / ____/___  _  __   / /_  ____  / /_  
   / /_  / __ \| |/_/  / __ \/ __ \/ __/  
  / /_  / /_/ />  <   / /_/ / /_/ / /_    
-/_/    \____/_/|_|  /_.___/\____/ \__/ v1.1.1'''
+/_/    \____/_/|_|  /_.___/\____/ \__/ v1.2.1'''
 
 def get_vk_code(key_name):
     key_str = str(key_name).upper().strip()
