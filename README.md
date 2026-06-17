@@ -57,9 +57,13 @@ If you have questions, feel free to add me on Discord:
   
 * **Hardware Setup (Optional - for Arduino Users):**
     1. **Connect:** Plug your **ATmega32U4-based board** (e.g., Leonardo, Pro Micro) into your PC.
+
     2. **Open Sketch:** Open the file `Arduino_Mouse_HID.ino` (located in the Arduino folder) with the [Arduino IDE](https://www.arduino.cc/en/software).
+
     3. **Select Board:** Go to **Tools > Board** and select **Arduino Leonardo** (Select this even if you are using a Pro Micro, as it uses the same chip!).
+
     4. **Flash:** Click the **Upload** arrow (top left) to flash the code to your hardware.
+    
     5. **Note COM Port:** After flashing, check **Tools > Port** and remember the assigned port (e.g., `COM3` or `COM9`). You will need this later in the Bot's S-Menu.
 
 4.  **Installation Commands:**

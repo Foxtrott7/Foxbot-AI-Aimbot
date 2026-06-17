@@ -283,7 +283,8 @@ def start_logic():
                                 tx_clamp = max(min(tx, 127), -127)
                                 ty_clamp = max(min(ty, 127), -127)
                                 try:
-                                    arduino.write(struct.pack('bb', tx_clamp, ty_clamp))
+                                    # Geändert von 'bb' auf 'bbb' (Letztes Byte ist 0 für kein Klick beim Bewegen)
+                                    arduino.write(struct.pack('bbb', tx_clamp, ty_clamp, 0))
                                     arduino.flush()
                                 except: pass
                             else:
@@ -302,10 +303,17 @@ def start_logic():
                             cv2.circle(display_frame, (int(target_x), int(target_y)), 3, (0, 0, 255), -1)
                             cv2.circle(display_frame, (int(target_x), int(target_y)), int(allowed_radius), (255, 0, 255), 1)
 
-            # Triggerbot Logik: Instant
+            # Triggerbot Logik: Unterstützt jetzt Arduino ('bbb') und Windows-API Fallback
             if triggerbot_enabled and crosshair_on_target:
-                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
-                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+                if config.use_arduino and arduino:
+                    try:
+                        # 0 Bewegung, aber Klick-Byte (drittes Byte) auf 1 gesetzt
+                        arduino.write(struct.pack('bbb', 0, 0, 1))
+                        arduino.flush()
+                    except: pass
+                else:
+                    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+                    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
 
             if config.visuals and display_frame is not None:
                 cv2.putText(display_frame, f"CPS: {current_cps}", (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
