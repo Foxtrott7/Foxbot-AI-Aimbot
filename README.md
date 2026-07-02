@@ -24,7 +24,7 @@ Modern anti-cheat systems often block virtual mouse inputs. This project demonst
 * **Awareness:** The goal is to raise awareness among developers regarding these hardware-based vulnerabilities.
 
 > ⚠ **Important Note:** Use at your own risk. If you get caught, you’ve been warned! I assume no liability for any consequences or game bans. Use this knowledge responsibly!
-> 
+
 ## 📱 Contact
 If you have questions, feel free to add me on Discord:  
 👤 **Discord:** `Foxi7`
@@ -46,59 +46,55 @@ If you have questions, feel free to add me on Discord:
 * **Input Method (Choose one):**
     * **Software Emulation:** Uses standard Windows API. No extra hardware needed—works instantly.
     * **Hardware Bridge:** Supports **ATmega32U4-based boards** (e.g., Leonardo, Pro Micro). This provides native HID mouse signals for maximum bypass security.
-
 * **Additional Software:** [Arduino IDE](https://www.arduino.cc/en/software) (Only if you use a hardware bridge).
 
-
 ## 🚀 Pre-setup Steps
-* **Download:** Click the green **Download** button at the top or download the source code from the [Latest Release](https://github.com/Foxtrott7/Foxbot-AI-Aimbot/releases/latest) and extract the archive to a folder 🗂️.
+1. **Download:** Click the green **Download** button at the top or download the source code from the [Latest Release](https://github.com/Foxtrott7/Foxbot-AI-Aimbot/releases/latest) and extract the archive to a folder 🗂️.
 
-* **Python:** Install [Python 3.11.x](https://www.python.org/downloads/release/python-3110/) (Important: Check **"Add Python to PATH"** during installation!) 🐍.
+2. **Python:** Install [Python 3.11.x](https://www.python.org/downloads/release/python-3110/) (Important: Check **"Add Python to PATH"** during installation!) 🐍.
   
-* **Hardware Setup (Optional - for Arduino Users):**
+3. **Hardware Setup (Optional - for Arduino Users):**
     1. **Connect:** Plug your **ATmega32U4-based board** (e.g., Leonardo, Pro Micro) into your PC.
-
     2. **Open Sketch:** Open the file `Arduino_Mouse_HID.ino` (located in the Arduino folder) with the [Arduino IDE](https://www.arduino.cc/en/software).
-
     3. **Select Board:** Go to **Tools > Board** and select **Arduino Leonardo** (Select this even if you are using a Pro Micro, as it uses the same chip!).
-
     4. **Flash:** Click the **Upload** arrow (top left) to flash the code to your hardware.
-    
     5. **Note COM Port:** After flashing, check **Tools > Port** and remember the assigned port (e.g., `COM3` or `COM9`). You will need this later in the Bot's S-Menu.
 
-4.  **Installation Commands:**
-    * **Nvidia GPU Users:**
-        ```powershell
-        pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cu118
-        pip install onnxruntime-gpu==1.17.1
-        pip install cupy-cuda11x
-        ```
-    * **AMD or CPU Users:**
-        ```powershell
-        pip install torch torchvision torchaudio
-        ```
-    * **Final Step (Required):**
-        ```powershell
-        pip install -r requirements.txt
-        ```
+4. **Installation & Terminal Setup:**
+   * **IMPORTANT:** Before running the commands below, open PowerShell or CMD and navigate to the extracted project folder:
+     * **Option A (Easy):** Type `cd ` (with a space), drag the project folder into the terminal window, and press **Enter**.
+     * **Option B (Manual):** Navigate via path, e.g.: `cd "C:\Path\To\Your\Project"`.
 
+   * **Nvidia GPU Users:**
+     ```powershell
+     pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url [https://download.pytorch.org/whl/cu118](https://download.pytorch.org/whl/cu118)
+     pip install onnxruntime-gpu==1.17.1
+     pip install cupy-cuda11x
+     ```
+   * **AMD or CPU Users:**
+     ```powershell
+     pip install torch torchvision torchaudio
+     ```
+   * **Final Step (Required for all):**
+     ```powershell
+     pip install -r requirements.txt
+     ```
 
 ## 🔌 How to Run & Configure
-
 1. **Game Preparation:** Set your game to **Windowed** or **Borderless Window** mode. 🖥️
    
-3. **Terminal Navigation:** Open PowerShell or CMD and navigate to the project folder:
+2. **Terminal Navigation:** Open PowerShell or CMD and navigate to the project folder:
     * **Option A (Easy):** Type `cd ` (with a space), drag your folder into the terminal, and press **Enter**.
     * **Option B (Manual):** Type the full path, e.g., `cd "C:\Users\Name\Documents\Foxbot-AI"`.
       
-4. **Start:** Run the script with: `python main.py`
+3. **Start:** Run the script with: `python main.py`
    
-6. **The S-Menu 🛠️:** Press **'S'** for the interactive setup:
+4. **The S-Menu 🛠️:** Press **'S'** for the interactive setup:
     * **Navigation:** Type your value and press **ENTER** to confirm, or simply press **ENTER** to skip a setting and keep its default.
     * **Arduino Users:** When prompted, enable Arduino mode (`y`) and enter your COM Port (e.g., `COM3` or `COM9`).
     * **Engine Selection:** Choose your hardware engine when prompted (`1` = CPU, `2` = AMD, `3` = NVIDIA).
       
-7. **Final Launch 🚀:** Press **ENTER** and choose your game window to arm the bot, then switch to your game.
+5. **Final Launch 🚀:** Press **ENTER** and choose your game window to arm the bot, then switch to your game.
 
 > [!TIP]
 > You can skip the S-Menu entirely by manually editing the `config.py` file with any text editor to save your preferred settings without the script.
@@ -109,9 +105,7 @@ If you have questions, feel free to add me on Discord:
 * **[INSERT] 🔫:** Triggerbot Switch (Toggles Auto-Fire ON/OFF).
 * **[END] 💣:** Exit (Closes the script immediately).
 
-
 ## ⚙️ Configurable Settings (`config.py`)
-
 | Feature | Variable | Default | Description |
 | :--- | :--- | :--- | :--- |
 | **🏎️ Performance** | `visuals` | `False` | Preview window with AI boxes (Keep `False` for max FPS) |
@@ -134,7 +128,6 @@ If you have questions, feel free to add me on Discord:
 ---
 
 ### 💡 Optimization Tips
-
 > [!TIP]
 > **Performance Boost:** The option is `visuals = False` by default to ensure the lowest possible input lag. Only enable it if you want to debug the AI detection visually.
 
