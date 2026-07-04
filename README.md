@@ -54,11 +54,13 @@ If you have questions, feel free to add me on Discord:
 2. **Python:** Install [Python 3.11.x](https://www.python.org/downloads/release/python-3110/) (Important: Check **"Add Python to PATH"** during installation!) 🐍.
   
 3. **Hardware Setup (Optional - for Arduino Users):**
-    1. **Connect:** Plug your **ATmega32U4-based board** (e.g., Leonardo, Pro Micro) into your PC.
-    2. **Open Sketch:** Open the file `Arduino_Mouse_HID.ino` (located in the Arduino folder) with the [Arduino IDE](https://www.arduino.cc/en/software).
-    3. **Select Board:** Go to **Tools > Board** and select **Arduino Leonardo** (Select this even if you are using a Pro Micro, as it uses the same chip!).
-    4. **Flash:** Click the **Upload** arrow (top left) to flash the code to your hardware.
-    5. **Note COM Port:** After flashing, check **Tools > Port** and remember the assigned port (e.g., `COM3` or `COM9`). You will need this later in the Bot's S-Menu.
+    1. **Connect:** Plug your **ATmega32U4-based board** (e.g., Leonardo, Pro Micro) into your PC via USB.
+    2. **Identify Port:** Open the **Windows Device Manager**, expand the **Ports (COM & LPT)** section, and note the COM port assigned to your board (e.g., `COM3`).
+    3. **Open Sketch:** Open the file `Arduino_Mouse_HID.ino` (located in the project's `Arduino` folder) using the [Arduino IDE](https://www.arduino.cc/en/software).
+    4. **Select Board & Port:** - Go to **Tools > Board** and select **Arduino Leonardo** (Select this even if you are using a Pro Micro, as it uses the same chip!).
+       - Go to **Tools > Port** and select the exact COM port you identified in step 2.
+    5. **Flash:** Click the **Upload** arrow (top left) to flash the code to your hardware. 
+       *Note: You will need to enter this same COM port later in the Bot's S-Menu.*
 
 4. **Installation & Terminal Setup:**
    * **IMPORTANT:** Before running the commands below, open PowerShell or CMD and navigate to the extracted project folder:
