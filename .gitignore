@@ -1,23 +1,20 @@
+# Venv & Python cache stuff
+.venv/
+venv
+__pycache__/
+*.pyc
+*.old
 test*
+
+# Models & Engines
 *.onnx
 *.pt
-*.torchscript
 *.engine
-onnxVer.py
-!yolov5m320Half.onnx
-!yolov5s320Half.onnx
-!yolov5m320Half.engine
-!yolov5s320Half.engine
-yolov5s.engine
-yolov5
-tensorrt-8.4.1.5-cp39-none-win_amd64.whl
-tensorrt-8.4.1.5-cp310-none-win_amd64.whl
-__pycache__
-utils/__pycache__
-models/__pycache__
-venv
-*.old
-elite
-!Robloxmodel.pt
-!rust.pt
-!rust.engine
+*.torchscript
+yolov8*.pt
+
+# Whitelisted Custom Models 
+!models/
+!models/*.pt
+!models/*.engine
+!models/*.onnx
