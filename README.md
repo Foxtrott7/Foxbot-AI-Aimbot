@@ -12,7 +12,7 @@
 
 ## 🙌 About the Project
 
-This tool utilizes **YOLOv8** (the newest, fastest, and most accurate real-time object detection architecture) for high-speed detection of humanoid characters. While the AI logic is based on the RootKit-Org framework, this project is fully rewritten, updated, and optimized for ultimate flexibility:
+This tool utilizes **YOLOv8** (an optimized upgrade from older YOLOv5 architectures with anchor-free detection and superior small-object recognition) for high-speed detection of humanoid characters. Built upon the RootKit-Org framework and integrating essential custom character-detection models and foundations from **SunOner's sunone_aimbot repository**, this project is fully rewritten, updated, and optimized for ultimate flexibility:
 
 * **Hybrid Input Support:** You can run the bot entirely via **Software** (Windows API) for a quick start, or use an **Arduino Leonardo** for professional-grade Human Interface Device (HID) hardware emulation.
 * **Security Focused:** The hardware interface is designed to provide the safest possible mouse movement, making it look like a genuine physical device to any Anti-Cheat.
@@ -27,8 +27,7 @@ Modern anti-cheat systems often block virtual mouse inputs. This project demonst
 * **Hardware Signals:** Mouse commands are sent as genuine USB signals, making software-level detection nearly impossible.
 * **Awareness:** The goal is to raise awareness among developers regarding these hardware-based vulnerabilities.
 
-> [!WARNING]
-> **Important Notice:** This tool is intended for educational purposes only. The author assumes no liability for any consequences, account restrictions, or game bans. Use this software responsibly at your own risk.
+> <span style="color:red">**⚠ Important Note:** Use at your own risk. If you get caught, you’ve been warned! I assume no liability for any consequences or game bans. Use this knowledge responsibly!</span>
 
 
 ## 📱 Contact
@@ -137,7 +136,7 @@ If you choose to utilize the **Hardware Bridge** option for physical USB mouse s
 | | `prediction_factor` | `1.0` | Prediction intensity. Adjust if aiming too far behind/ahead of running targets |
 | **🔫 Triggerbot** | `triggerbot_enabled` | `False` | Independent auto-fire status |
 | | `hotkeyTrigger` | `'INSERT'` | Toggle key to activate/deactivate the Triggerbot |
-| **⌨️ Controls** | `hotkeyAimbot` | `'CAPS'` | Master switch key to activate/deactivate the bot |
+| **⌨️ Controls** | `hotkeyAimbot` | `'CAPs'` | Master switch key to activate/deactivate the bot |
 | | `hotkeyRMB` | `'PAGEDOWN'` | Key to switch between Always-On and RMB-Hold mode |
 | | `hotkeyDelay` | `0.15` | Delay in seconds before Aim kicks in (RMB Mode) |
 | | `quitKey` | `'END'` | Emergency stop key for the script |
@@ -157,33 +156,31 @@ If you choose to utilize the **Hardware Bridge** option for physical USB mouse s
 > [!TIP]
 > **Target Prediction:** The newly added **Prediction System** calculates target velocity. If you notice the crosshair lagging behind sprinting players, increase `prediction_factor` to `1.2`. If it over-predicts and snaps too far ahead, lower it to `0.5`.
 
+> [!TIP]
+> **NVIDIA FP16 Issue:** On certain NVIDIA graphics cards, half-precision execution (`FP16`) can occasionally cause stuttering, rendering artifacts, or performance drops. If you experience unexpected lag or frame drops, make sure to disable FP16 (`use_half = False`).
+
 
 ## 🗺️ Roadmap & Project Status
 
 Features marked with `[x]` are already integrated and working:
 
-## 🗺️ Roadmap & Project Status
-
-Features marked with `[x]` are already integrated and working:
-
-* [x] **Hybrid Input:** Support for both Arduino Hardware and Software Mouse 🖱️[cite: 9]
-* [x] **YOLOv8 Engine:** Upgraded to the ultra-fast YOLOv8 architecture for superior detection 🏎️[cite: 9]
-* [x] **Advanced Speed Scaling:** Distance-based progressive speed scaling (`min_speed_multiplier` / `max_speed_multiplier`) 📈[cite: 9]
-* [x] **Movement Prediction:** Real-time trajectory prediction for moving enemies 🔮[cite: 9]
-* [x] **One-Click Setup & Launchers:** Automated installation and running using `.bat` files 🚀[cite: 9]
-* [x] **S-Menu Configuration:** Change settings like smoothing, prediction and device on the fly 🛠️[cite: 9]
-* [x] **Triggerbot:** Auto-fire when a target is locked 🔫[cite: 9]
+* [x] **Hybrid Input:** Support for both Arduino Hardware and Software Mouse 🖱️
+* [x] **YOLOv8 Engine:** Upgraded to the ultra-fast YOLOv8 anchor-free architecture for superior detection 🏎️
+* [x] **Advanced Speed Scaling:** Distance-based progressive speed scaling (`min_speed_multiplier` / `max_speed_multiplier`) 📈
+* [x] **Movement Prediction:** Real-time trajectory prediction for moving enemies 🔮
+* [x] **One-Click Setup & Launchers:** Automated installation and running using `.bat` files 🚀
+* [x] **S-Menu Configuration:** Change settings like smoothing, prediction and device on the fly 🛠️
+* [x] **Triggerbot:** Auto-fire when a target is locked 🔫
 * [x] **Live Config Auto-Reload:** Automatically detects saves in `config.py` and applies all settings in real-time while the aimbot is running ⚡
-* [ ] **In-Game FOV Overlay:** Live, transparent "Click-Through" circle rendered directly over your game (independent of the debug window) to show the exact activation radius based on config dimensions (`screenShotWidth`/`screenShotHeight`) ⭕[cite: 9]
-* [ ] **Circular Mask Filtering (Circle Tracking):** Optional black mask layer that restricts YOLOv8 scanning strictly to the visual circular FOV, discarding any detections outside the circle to save performance and focus tracking 🎯[cite: 9]
-* [ ] **Debug Overlay Bugfixes:** General optimization and cleanup of the visual feedback window 🐛[cite: 9]
+* [ ] **In-Game FOV Overlay:** Live, transparent "Click-Through" circle rendered directly over your game (independent of the debug window) to show the exact activation radius based on config dimensions (`screenShotWidth`/`screenShotHeight`) ⭕
+* [ ] **Circular Mask Filtering (Circle Tracking):** Optional black mask layer that restricts YOLOv8 scanning strictly to the visual circular FOV, discarding any detections outside the circle to save performance and focus tracking 🎯
+* [ ] **Debug Overlay Bugfixes:** General optimization and cleanup of the visual feedback window 🐛
 
 
 ## 📜 Credits
 
 * **Framework Base:** [RootKit-Org](https://github.com/RootKit-Org/AI-Aimbot) (Core logic, config & selection).
-* **AI Engine:** [YOLOv8 by Ultralytics](https://github.com/ultralytics).
-* **YOLO Models:** Inspired by and based on [SunOner's sunone_aimbot](https://github.com/SunOner/sunone_aimbot) custom trained models.
+* **AI Engine & Models:** [YOLOv8 by Ultralytics](https://github.com/ultralytics) & crucial video-game character detection model foundations from [SunOner's sunone_aimbot repository](https://github.com/SunOner/sunone_aimbot/tree/main/models).
 
 
 ## ⚖️ License
