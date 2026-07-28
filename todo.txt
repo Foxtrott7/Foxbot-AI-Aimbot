@@ -1,0 +1,8 @@
+Start.bat bei abrechjen neu starten also bei str c und nicht schliesen sondern nur bei "End"
+
+Visuelle Oberfläche Ingame
+
+Debug Fenser Screenshot fix
+
+Headsthot mode testen
+

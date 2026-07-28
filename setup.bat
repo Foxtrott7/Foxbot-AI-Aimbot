@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 >nul
 title Foxbot AI - Environment Setup
 
 echo ===================================================
@@ -47,39 +48,52 @@ echo ===================================================
 echo.
 set /p target_hw="Enter choice (1, 2, or 3) and press Enter: "
 
-if "%target_hw%"=="1" goto INSTALL_NVIDIA
+if "%target_hw%"=="1" goto CHECK_CUDA
 if "%target_hw%"=="2" goto INSTALL_AMD
 goto INSTALL_CPU
 
-:INSTALL_NVIDIA
+:CHECK_CUDA
 echo.
 echo ===================================================
 echo Checking for CUDA Toolkit 11.8...
 echo ===================================================
 
 where nvcc >nul 2>&1
-if errorlevel 1 goto ERROR_NO_CUDA
+if errorlevel 1 goto CUDA_MISSING_PROMPT
 
 nvcc --version | findstr "release 11.8" >nul
-if errorlevel 1 goto ERROR_WRONG_CUDA
+if errorlevel 1 goto CUDA_MISSING_PROMPT
 
 echo [OK] CUDA Toolkit 11.8 detected.
 echo.
+goto INSTALL_NVIDIA
 
-echo [INFO] Installing PyTorch with CUDA 11.8...
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
-
-echo [INFO] Installing CuPy and ONNX Runtime GPU...
-pip install cupy-cuda11x onnxruntime-gpu==1.17.1
-
-goto INSTALL_REQUIREMENTS
+:CUDA_MISSING_PROMPT
+echo.
+echo ===================================================
+echo [WARNING] CUDA Toolkit 11.8 was NOT found!
+echo ===================================================
+echo NVIDIA acceleration requires CUDA Toolkit 11.8
+echo to be installed on your system.
+echo.
+echo Please install it now if you haven't already.
+echo Download Link:
+echo https://developer.nvidia.com/cuda-11-8-0-download-archive
+echo.
+echo After successful installation, press any key
+echo to retry detection...
+echo ===================================================
+pause >nul
+goto CHECK_CUDA
 
 :INSTALL_NVIDIA
 echo.
 echo [INFO] Installing PyTorch with CUDA 11.8...
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+
 echo [INFO] Installing CuPy and ONNX Runtime GPU...
 pip install cupy-cuda11x onnxruntime-gpu==1.17.1
+
 goto INSTALL_REQUIREMENTS
 
 :INSTALL_AMD
