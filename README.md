@@ -50,7 +50,7 @@ If you have questions, feel free to add me on Discord:
 
 ## 🧰 Requirements
 
-* **GPU (NVIDIA):** GTX 10-series or newer & [NVIDIA CUDA Toolkit 11.8](https://developer.nvidia.com/cuda-11-8-0-download-archive) (Recommended for speed).
+* **GPU (NVIDIA):** GTX 10-series or newer & [NVIDIA CUDA Toolkit 11.8](https://developer.nvidia.com/cuda-11-8-0-download-archive) 
 * **GPU (AMD):** DirectX 12 compatible.
 * **Input Method (Choose one):**
     * **Software Emulation:** Uses standard Windows API. No extra hardware needed—works instantly.
