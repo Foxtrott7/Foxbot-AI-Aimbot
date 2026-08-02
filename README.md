@@ -12,7 +12,7 @@
 
 ## 🙌 About the Project
 
-This tool utilizes **YOLOv8** (an optimized upgrade from older YOLOv5 architectures with anchor-free detection and superior small-object recognition) for high-speed detection of humanoid characters. Built upon the RootKit-Org framework and integrating essential custom character-detection models and foundations from **SunOner's sunone_aimbot repository**, this project is fully rewritten, updated, and optimized for ultimate flexibility:
+This tool utilizes **YOLOv8** for high-speed detection of humanoid characters. Built upon the RootKit-Org framework and integrating essential custom character-detection models and foundations from **SunOner's sunone_aimbot repository**, this project is fully rewritten, updated, and optimized for ultimate flexibility:
 
 * **Hybrid Input Support:** You can run the bot entirely via **Software** (Windows API) for a quick start, or use an **Arduino Leonardo** for professional-grade Human Interface Device (HID) hardware emulation.
 * **Security Focused:** The hardware interface is designed to provide the safest possible mouse movement, making it look like a genuine physical device to any Anti-Cheat.
