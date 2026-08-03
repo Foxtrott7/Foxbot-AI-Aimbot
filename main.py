@@ -260,9 +260,7 @@ def start_logic():
                     vkey_trigger = get_vk_code(config.hotkeyTrigger)
                     ss_key = getattr(config, 'debug_window_screenshot_key', 'print screen')
                     
-                    print_interface()
-                    sys.stdout.write(colored("\n[INFO] Config wurde automatisch im Hintergrund aktualisiert!\n", "green"))
-                    sys.stdout.flush()
+                   
             except Exception:
                 pass
 
