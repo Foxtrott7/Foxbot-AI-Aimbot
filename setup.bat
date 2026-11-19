@@ -8,39 +8,45 @@ echo           FOXBOT AI AIMBOT SETUP WIZARD
 echo ===================================================
 echo.
 
-echo [INFO] Checking for Python on your PC...
-set "PYTHON_CMD="
+echo [INFO] Checking for uv (Python ^& package manager)...
+set "UV_CMD="
+call :FIND_UV
+if defined UV_CMD goto UV_FOUND
 
-:: Prefer Python 3.11 via Windows Python Launcher if multiple versions are installed
-py -3.11 -c "import sys" >nul 2>&1
+echo [INFO] uv not found. Installing uv automatically...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://astral.sh/uv/install.ps1 | iex"
+call :FIND_UV
+if defined UV_CMD goto UV_FOUND
+
+echo [WARNING] PowerShell installer failed, trying winget...
+winget install --id astral-sh.uv -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+call :FIND_UV
+if defined UV_CMD goto UV_FOUND
+
+goto ERROR_UV_FAILED
+
+:FIND_UV
+where uv >nul 2>&1
 if %errorlevel% equ 0 (
-    set "PYTHON_CMD=py -3.11"
-    goto PYTHON_FOUND
+    set "UV_CMD=uv"
+    exit /b 0
 )
-
-:: Fallback to default python on PATH (and verify it's not the Microsoft Store stub)
-python -c "import sys" >nul 2>&1
-if %errorlevel% equ 0 (
-    set "PYTHON_CMD=python"
-    goto PYTHON_FOUND
+if exist "%USERPROFILE%\.local\bin\uv.exe" (
+    set "UV_CMD=%USERPROFILE%\.local\bin\uv.exe"
+    exit /b 0
 )
-
-goto ERROR_NO_PYTHON
-
-:PYTHON_FOUND
-echo [INFO] Python found! Using: %PYTHON_CMD%
-%PYTHON_CMD% --version
-for /f "tokens=1,2 delims=." %%a in ('%PYTHON_CMD% -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')"') do (
-    set "PY_MAJOR=%%a"
-    set "PY_MINOR=%%b"
+if exist "%USERPROFILE%\.cargo\bin\uv.exe" (
+    set "UV_CMD=%USERPROFILE%\.cargo\bin\uv.exe"
+    exit /b 0
 )
-set "PY_VER=%PY_MAJOR%.%PY_MINOR%"
+exit /b 1
+
+:UV_FOUND
+echo [INFO] uv found! Using: "%UV_CMD%"
+"%UV_CMD%" --version
 echo.
 
-if %PY_MAJOR% lss 3 goto ERROR_PYTHON_TOO_OLD
-if %PY_MAJOR% equ 3 if %PY_MINOR% lss 10 goto ERROR_PYTHON_TOO_OLD
-
-echo [INFO] Checking virtual environment (.venv)...
+echo [INFO] Checking virtual environment (.venv with Python 3.11)...
 if not exist ".venv" goto CREATE_VENV
 
 if not exist ".venv\Scripts\python.exe" (
@@ -55,13 +61,21 @@ if not exist ".venv\.setup_complete" (
     goto CREATE_VENV
 )
 
-echo [INFO] Existing .venv environment detected.
+".venv\Scripts\python.exe" -c "import sys; sys.exit(0 if sys.version_info[:2] == (3, 11) else 1)" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [WARNING] Existing .venv is not Python 3.11. Recreating with Python 3.11...
+    rmdir /s /q ".venv"
+    goto CREATE_VENV
+)
+
+echo [INFO] Existing Python 3.11 .venv environment detected.
 del /q ".venv\.setup_complete" >nul 2>&1
 goto CHECK_VENV_PY
 
 :CREATE_VENV
-echo [INFO] Creating a new virtual environment (.venv)...
-%PYTHON_CMD% -m venv .venv
+echo [INFO] Creating a new isolated Python 3.11 virtual environment (.venv)...
+echo [INFO] (uv will automatically download Python 3.11 if not cached yet.)
+"%UV_CMD%" venv --python 3.11 --seed .venv
 if %errorlevel% neq 0 goto ERROR_VENV_FAILED
 echo [INFO] VENV created successfully!
 
@@ -69,11 +83,7 @@ echo [INFO] VENV created successfully!
 set "VENV_PY=.venv\Scripts\python.exe"
 if not exist "%VENV_PY%" goto ERROR_NO_VENV_PY
 echo [INFO] Using VENV Python: %VENV_PY%
-echo.
-
-echo [INFO] Upgrading pip inside .venv...
-"%VENV_PY%" -m pip install --upgrade pip
-if %errorlevel% neq 0 goto ERROR_INSTALL_FAILED
+"%VENV_PY%" --version
 echo.
 
 echo ===================================================
@@ -127,24 +137,27 @@ goto CHECK_CUDA
 :INSTALL_NVIDIA
 echo.
 echo [INFO] Installing PyTorch with CUDA 11.8...
-"%VENV_PY%" -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
-if %errorlevel% neq 0 (
-    echo [WARNING] CUDA 11.8 PyTorch wheel not available for Python %PY_VER%. Trying CUDA 12.6...
-    "%VENV_PY%" -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
-    if %errorlevel% neq 0 goto ERROR_INSTALL_FAILED
-)
+"%UV_CMD%" pip install --python "%VENV_PY%" torch torchvision --index-url https://download.pytorch.org/whl/cu118
+if %errorlevel% neq 0 goto TRY_CUDA_126
+goto INSTALL_NVIDIA_EXTRAS
 
+:TRY_CUDA_126
+echo [WARNING] CUDA 11.8 PyTorch wheel failed. Trying CUDA 12.6...
+"%UV_CMD%" pip install --python "%VENV_PY%" torch torchvision --index-url https://download.pytorch.org/whl/cu126
+if %errorlevel% neq 0 goto ERROR_INSTALL_FAILED
+
+:INSTALL_NVIDIA_EXTRAS
 echo [INFO] Installing CuPy and ONNX Runtime GPU...
-"%VENV_PY%" -m pip install cupy-cuda11x
+"%UV_CMD%" pip install --python "%VENV_PY%" cupy-cuda11x
 if %errorlevel% neq 0 (
-    echo [WARNING] cupy-cuda11x could not be installed for Python %PY_VER%. Continuing...
+    echo [WARNING] cupy-cuda11x could not be installed. Continuing...
 )
-"%VENV_PY%" -m pip install onnxruntime-gpu==1.17.1
+"%UV_CMD%" pip install --python "%VENV_PY%" onnxruntime-gpu==1.17.1
 if %errorlevel% neq 0 (
-    echo [WARNING] onnxruntime-gpu==1.17.1 not available for Python %PY_VER%, installing latest onnxruntime-gpu...
-    "%VENV_PY%" -m pip install onnxruntime-gpu
+    echo [WARNING] onnxruntime-gpu==1.17.1 not available, installing latest onnxruntime-gpu...
+    "%UV_CMD%" pip install --python "%VENV_PY%" onnxruntime-gpu
     if %errorlevel% neq 0 (
-        echo [WARNING] onnxruntime-gpu could not be installed for Python %PY_VER%. Continuing...
+        echo [WARNING] onnxruntime-gpu could not be installed. Continuing...
     )
 )
 
@@ -153,11 +166,11 @@ goto INSTALL_REQUIREMENTS
 :INSTALL_AMD
 echo.
 echo [INFO] Installing PyTorch (CPU/DirectML Base)...
-"%VENV_PY%" -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+"%UV_CMD%" pip install --python "%VENV_PY%" torch torchvision --index-url https://download.pytorch.org/whl/cpu
 if %errorlevel% neq 0 goto ERROR_INSTALL_FAILED
 
 echo [INFO] Installing ONNX Runtime with DirectML support (AMD)...
-"%VENV_PY%" -m pip install onnxruntime-directml
+"%UV_CMD%" pip install --python "%VENV_PY%" onnxruntime-directml
 if %errorlevel% neq 0 goto ERROR_INSTALL_FAILED
 
 goto INSTALL_REQUIREMENTS
@@ -165,14 +178,14 @@ goto INSTALL_REQUIREMENTS
 :INSTALL_CPU
 echo.
 echo [INFO] Installing standard PyTorch for CPU...
-"%VENV_PY%" -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+"%UV_CMD%" pip install --python "%VENV_PY%" torch torchvision --index-url https://download.pytorch.org/whl/cpu
 if %errorlevel% neq 0 goto ERROR_INSTALL_FAILED
 goto INSTALL_REQUIREMENTS
 
 :INSTALL_REQUIREMENTS
 echo.
 echo [INFO] Installing remaining requirements from requirements.txt...
-"%VENV_PY%" -m pip install -r requirements.txt
+"%UV_CMD%" pip install --python "%VENV_PY%" -r requirements.txt
 if %errorlevel% neq 0 goto ERROR_REQ_FAILED
 
 echo.
@@ -193,30 +206,14 @@ exit /b 0
 
 :: --- ERROR DIAGNOSTICS ---
 
-:ERROR_NO_PYTHON
+:ERROR_UV_FAILED
 echo.
 echo ===================================================
-echo [ERROR] Python was not found on your system!
+echo [ERROR] Could not install or find uv!
 echo ===================================================
-echo Please make sure:
-echo 1. Python 3.10 or newer (3.11 recommended) is installed on your PC.
-echo 2. You checked "Add Python to PATH" during installation!
-echo.
-echo You can download Python 3.11 here:
-echo https://www.python.org/downloads/release/python-3119/
-echo (Please restart CMD / run setup.bat again after installation!)
-echo ===================================================
-pause
-exit /b 1
-
-:ERROR_PYTHON_TOO_OLD
-echo.
-echo ===================================================
-echo [ERROR] Python %PY_VER% is too old!
-echo ===================================================
-echo Foxbot requires at least Python 3.10 (3.11 recommended).
-echo Please install a newer Python version from:
-echo https://www.python.org/downloads/release/python-3119/
+echo Please check your internet connection, or install uv manually:
+echo   winget install astral-sh.uv
+echo Then run setup.bat again.
 echo ===================================================
 pause
 exit /b 1
@@ -224,10 +221,10 @@ exit /b 1
 :ERROR_VENV_FAILED
 echo.
 echo ===================================================
-echo [ERROR] Failed to create virtual environment!
+echo [ERROR] Failed to create Python 3.11 virtual environment!
 echo ===================================================
-echo Python could not execute "%PYTHON_CMD% -m venv .venv".
-echo You might lack write permissions in the current folder.
+echo uv could not execute "uv venv --python 3.11 --seed .venv".
+echo Check your internet connection and folder write permissions.
 echo ===================================================
 pause
 exit /b 1
@@ -250,7 +247,7 @@ echo [ERROR] Package installation failed!
 echo ===================================================
 echo One of the core packages (PyTorch / CuPy / ONNX) failed
 echo to install. Check the error messages above.
-echo Make sure you are using Python 3.11 and have internet access.
+echo Make sure you have internet access and enough disk space.
 echo ===================================================
 pause
 exit /b 1
@@ -261,7 +258,7 @@ echo ===================================================
 echo [ERROR] Failed to install requirements.txt!
 echo ===================================================
 echo Please check the error messages in the CMD window above.
-echo Make sure you are using Python 3.11.
+echo Make sure you have internet access.
 echo ===================================================
 pause
 exit /b 1
