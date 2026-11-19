@@ -201,15 +201,17 @@ def start_logic():
     config_half = getattr(config, 'use_half', True)
 
     if cfg_device == "nvidia":
-        if torch.cuda.is_available():
-            target_device = 0
-            use_half = config_half
-            device_display_name = f"NVIDIA (CUDA) | FP16: {'ON' if use_half else 'OFF'}"
-        else:
-            print(colored("[WARNING] NVIDIA (CUDA) selected, but CUDA is not available in PyTorch. Falling back to CPU.", "yellow"))
-            target_device = "cpu"
-            use_half = False
-            device_display_name = "CPU (CUDA Unavailable Fallback) | FP16: OFF"
+        if not torch.cuda.is_available():
+            print(colored(
+                f"[ERROR] NVIDIA (CUDA) is selected, but CUDA is not available in PyTorch "
+                f"(torch={torch.__version__}, cuda_built={torch.version.cuda}). "
+                f"Re-run setup.bat and choose NVIDIA, or check your GPU drivers.",
+                "red"
+            ))
+            sys.exit(1)
+        target_device = 0
+        use_half = config_half
+        device_display_name = f"NVIDIA (CUDA) | FP16: {'ON' if use_half else 'OFF'}"
     elif cfg_device == "amd":
         target_device = "dml"
         use_half = False  
