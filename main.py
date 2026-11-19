@@ -201,9 +201,15 @@ def start_logic():
     config_half = getattr(config, 'use_half', True)
 
     if cfg_device == "nvidia":
-        target_device = 0
-        use_half = config_half
-        device_display_name = f"NVIDIA (CUDA) | FP16: {'ON' if use_half else 'OFF'}"
+        if torch.cuda.is_available():
+            target_device = 0
+            use_half = config_half
+            device_display_name = f"NVIDIA (CUDA) | FP16: {'ON' if use_half else 'OFF'}"
+        else:
+            print(colored("[WARNING] NVIDIA (CUDA) selected, but CUDA is not available in PyTorch. Falling back to CPU.", "yellow"))
+            target_device = "cpu"
+            use_half = False
+            device_display_name = "CPU (CUDA Unavailable Fallback) | FP16: OFF"
     elif cfg_device == "amd":
         target_device = "dml"
         use_half = False  
@@ -216,7 +222,7 @@ def start_logic():
     print(colored(f"[INFO] Loading YOLOv8 model from {config.model_path} on {device_display_name}...", "yellow"))
     try: model = YOLO(config.model_path)
     except Exception as e:
-        print(colored(f"[ERROR] Failed to load model: {e}", "red")); sys.exit(0)
+        print(colored(f"[ERROR] Failed to load model: {e}", "red")); sys.exit(1)
 
     print_interface()
     session_start_time = time.time()
@@ -521,3 +527,4 @@ if __name__ == "__main__":
     try: start_logic()
     except Exception as e:
         import traceback; traceback.print_exception(e)
+        sys.exit(1)
