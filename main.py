@@ -179,7 +179,10 @@ def start_logic():
             selection = gameSelection.gameSelection()
             if selection: camera, cWidth, cHeight = selection
             else: time.sleep(1); continue
-        except Exception: camera = None
+        except Exception as e:
+            print(colored(f"Error initializing capture: {e}", "red"))
+            time.sleep(1)
+            camera = None
 
     arduino = None
     if config.use_arduino:
